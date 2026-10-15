@@ -1,61 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mustefaga Representações | Portal de Pedidos de Estética</title>
   
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%23d97706' d='M256 0c141.4 0 256 114.6 256 256S397.4 512 256 512 0 397.4 0 256 114.6 0 256 0zm0 96c-88.4 0-160 71.6-160 160s71.6 160 160 160 160-71.6 160-160S344.4 96 256 96z'/></svg>">
+  <!-- Favicon Médico / Estético em SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%230d9488' d='M256 0c141.4 0 256 114.6 256 256S397.4 512 256 512 0 397.4 0 256 114.6 0 256 0zm0 96c-88.4 0-160 71.6-160 160s71.6 160 160 160 160-71.6 160-160S344.4 96 256 96z'/></svg>">
+
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <style>
     :root {
-      --bg: #0d1117;
-      --cd: #161b22;
-      --in: #0d1117;
-      --ac: #d97706;
-      --ac-hover: #b45309;
-      --dg: #ef4444;
-      --tx: #f3f4f6;
-      --mu: #9ca3af;
-      --bd: #ffffff1a;
-      --success: #10b981;
+      /* Light Mode Clean Health & Clinical Teal */
+      --bg: #f4f7f6; /* Off-white médico/clínico suave */
+      --cd: #ffffff;
+      --in: #edf2f0;
+      --ac: #0d9488; /* Verde Esmeralda / Menta Médico */
+      --ac-hover: #0f766e;
+      --dg: #dc2626;
+      --tx: #1e293b;
+      --mu: #64748b;
+      --bd: #e2e8f0;
+      --success: #059669;
+      --gold: #d97706;
     }
 
-    [data-theme="light"] {
-      --bg: #f8fafc;
-      --cd: #ffffff;
-      --in: #f1f5f9;
-      --ac: #b45309;
-      --ac-hover: #92400e;
-      --dg: #dc2626;
-      --tx: #0f172a;
-      --mu: #64748b;
-      --success: #059669;
+    [data-theme="dark"] {
+      /* Dark Premium Health Theme */
+      --bg: #0f172a;
+      --cd: #1e293b;
+      --in: #0f172a;
+      --ac: #14b8a6;
+      --ac-hover: #0d9488;
+      --dg: #ef4444;
+      --tx: #f8fafc;
+      --mu: #94a3b8;
+      --bd: #ffffff1f;
+      --success: #10b981;
+      --gold: #f59e0b;
     }
 
     * { box-sizing: border-box; margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.2s, color 0.2s, border-color 0.2s; }
     body { background: var(--bg); color: var(--tx); min-height: 100vh; padding-bottom: 60px; }
 
-    header { background: var(--cd); border-bottom: 1px solid var(--bd); padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    /* Top Navigation Header */
+    header { background: var(--cd); border-bottom: 1px solid var(--bd); padding: 16px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
     .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
     
     .brand { display: flex; align-items: center; gap: 14px; }
-    .brand-logo { width: 44px; height: 44px; background: linear-gradient(135deg, var(--ac), #f59e0b); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.4em; font-weight: 800; }
-    .brand-info h1 { font-size: 1.15em; font-weight: 800; color: var(--tx); letter-spacing: -0.3px; }
-    .brand-info p { font-size: 0.75em; color: var(--mu); font-weight: 500; }
+    .brand-logo { width: 48px; height: 48px; background: linear-gradient(135deg, var(--ac), #0284c7); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5em; font-weight: 800; box-shadow: 0 4px 12px color-mix(in srgb, var(--ac) 30%, transparent); }
+    .brand-info h1 { font-size: 1.2em; font-weight: 800; color: var(--tx); letter-spacing: -0.3px; }
+    .brand-info p { font-size: 0.78em; color: var(--mu); font-weight: 500; display: flex; align-items: center; gap: 8px; margin-top: 2px; }
 
     .header-actions { display: flex; align-items: center; gap: 10px; }
 
+    /* Main Container Layout */
     main { max-width: 1200px; margin: 28px auto 0; padding: 0 20px; display: grid; grid-template-columns: 1fr 380px; gap: 24px; }
     @media(max-width: 960px) { main { grid-template-columns: 1fr; } }
 
-    .cd { background: var(--cd); border: 1px solid var(--bd); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+    /* Card Box */
+    .cd { background: var(--cd); border: 1px solid var(--bd); border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
     h2 { font-size: 1.2em; margin-bottom: 6px; color: var(--tx); display: flex; align-items: center; gap: 10px; }
     p.sub { color: var(--mu); font-size: 0.85em; margin-bottom: 20px; }
 
-    label { display: block; font-size: 0.78em; color: var(--mu); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    /* Forms */
+    label { display: block; font-size: 0.78em; color: var(--mu); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
     input, select, textarea { background: var(--in); border: 1px solid var(--bd); color: var(--tx); border-radius: 10px; padding: 11px 14px; width: 100%; font-size: 0.88em; margin-bottom: 14px; outline: none; }
     input:focus, select:focus, textarea:focus { border-color: var(--ac); box-shadow: 0 0 0 2px color-mix(in srgb, var(--ac) 25%, transparent); }
 
@@ -63,49 +74,59 @@
     .g3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; }
     @media(max-width: 640px) { .g2, .g3 { grid-template-columns: 1fr; } }
 
+    /* Buttons */
     .btn { background: var(--in); border: 1px solid var(--bd); color: var(--tx); border-radius: 10px; padding: 10px 18px; font-size: 0.85em; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
     .btn:hover { border-color: var(--ac); color: var(--ac); }
     .btn.pr { background: var(--ac); color: #ffffff !important; border-color: var(--ac); font-weight: 700; }
     .btn.pr:hover { background: var(--ac-hover); border-color: var(--ac-hover); }
-    .btn.success { background: #25d366; color: #fff !important; border-color: #25d366; }
+    .btn.success { background: #25d366; color: #fff !important; border-color: #25d366; font-weight: 700; }
     .btn.success:hover { background: #1eb857; }
     .btn.dn { color: var(--dg); border-color: transparent; }
     .btn.dn:hover { background: color-mix(in srgb, var(--dg) 15%, transparent); }
 
+    /* Table Styles */
     .tb-wrap { overflow-x: auto; margin-top: 10px; }
     table { width: 100%; border-collapse: collapse; font-size: 0.85em; text-align: left; }
     th { background: var(--in); color: var(--ac); padding: 12px; border-bottom: 1px solid var(--bd); font-weight: 700; font-size: 0.75em; text-transform: uppercase; }
     td { padding: 12px; border-bottom: 1px solid var(--bd); color: var(--tx); }
     tr:hover td { background: color-mix(in srgb, var(--in) 50%, transparent); }
 
+    /* Badge Summary */
     .badge { background: var(--in); color: var(--ac); border: 1px solid var(--bd); font-size: 0.75em; padding: 4px 10px; border-radius: 20px; font-weight: 700; }
     
     .total-box { background: var(--in); border: 1px solid var(--bd); border-radius: 12px; padding: 16px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; }
     .total-box span { font-size: 0.9em; color: var(--mu); font-weight: 600; }
     .total-box strong { font-size: 1.4em; color: var(--ac); font-weight: 800; }
 
-    .cnpj-badge { display: inline-flex; align-items: center; gap: 6px; background: color-mix(in srgb, var(--success) 15%, transparent); color: var(--success); font-size: 0.75em; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: 1px solid color-mix(in srgb, var(--success) 30%, transparent); }
+    /* Status Badge */
+    .cnpj-badge { display: inline-flex; align-items: center; gap: 4px; background: color-mix(in srgb, var(--success) 12%, transparent); color: var(--success); font-size: 0.75em; font-weight: 700; padding: 2px 8px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--success) 25%, transparent); }
   </style>
 </head>
 <body>
 
+<!-- Header Principal -->
 <header>
   <div class="header-container">
     <div class="brand">
       <div class="brand-logo">M</div>
       <div class="brand-info">
         <h1>Mustefaga Representações</h1>
-        <p>Distribuição de Insumos Estéticos & Produtos Médicos <span class="cnpj-badge"><i class="fa-solid fa-check"></i> CNPJ Ativo</span></p>
+        <p>Distribuição de Insumos Estéticos & Produtos Médicos <span class="cnpj-badge"><i class="fa-solid fa-circle-check"></i> CNPJ Ativo</span></p>
       </div>
     </div>
 
     <div class="header-actions">
-      <a href="https://wa.me/554133741229?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos%20de%20est%C3%A9tica." target="_blank" class="btn success">
-        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      <!-- Click-to-WhatsApp (Configurado para o seu número de teste: 41 99254-0507) -->
+      <a href="https://wa.me/5541992540507?text=Ol%C3%A1!%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20o%20portal%20de%20pedidos%20Mustefaga." target="_blank" class="btn success">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp Teste
       </a>
-      <a href="https://maps.google.com/?q=Rua+Joao+Batista+Meneguette,+22,+Abranches,+Curitiba+-+PR" target="_blank" class="btn">
-        <i class="fa-solid fa-location-dot"></i> Curitiba/PR
+      
+      <!-- Click-to-Google Maps (API / Link direto para o endereço do Maicon em Curitiba) -->
+      <a href="https://www.google.com/maps/search/?api=1&query=Rua+Joao+Batista+Meneguette,+22+-+Abranches,+Curitiba+-+PR" target="_blank" class="btn">
+        <i class="fa-solid fa-location-dot" style="color: var(--ac);"></i> Abranches - Curitiba/PR
       </a>
+
+      <!-- Toggle Theme -->
       <button class="btn" onclick="toggleTheme()" id="btn-theme" title="Alternar Tema">
         <i class="fa-solid fa-circle-half-stroke"></i>
       </button>
@@ -114,10 +135,13 @@
 </header>
 
 <main>
+  <!-- Coluna da Esquerda: Catálogo e Tabela do Pedido -->
   <div class="col-main">
+    
+    <!-- Bloco 1: Seleção de Produtos -->
     <div class="cd">
       <h2><i class="fa-solid fa-box-open" style="color: var(--ac);"></i> 1. Seleção de Produtos do Pedido</h2>
-      <p class="sub">Escolha os insumos, verifique os valores unitários e adicione à lista da sua solicitação.</p>
+      <p class="sub">Escolha os insumos de harmonização/estética, confira os valores e monte o seu pedido.</p>
       
       <form onsubmit="adicionarItemPedido(event)">
         <div class="g3">
@@ -127,6 +151,7 @@
               <option value="" disabled selected>Selecione um item do catálogo...</option>
               <option value="BTX-100U|Botox Toxina Botulínica 100U|480.00">Botox Toxina Botulínica 100U (Ref: BTX-100U)</option>
               <option value="BTX-200U|Botox Toxina Botulínica 200U|850.00">Botox Toxina Botulínica 200U (Ref: BTX-200U)</option>
+
               <option value="PRN-FINE|Preenchedor Ácido Hialurônico Fine 1ml|320.00">Preenchedor Ácido Hialurônico Fine 1ml (Ref: PRN-FINE)</option>
               <option value="PRN-DEEP|Preenchedor Ácido Hialurônico Deep 1ml|380.00">Preenchedor Ácido Hialurônico Deep 1ml (Ref: PRN-DEEP)</option>
               <option value="PRN-SUB|Preenchedor Ácido Hialurônico Sub-Q 1ml|420.00">Preenchedor Ácido Hialurônico Sub-Q 1ml (Ref: PRN-SUB)</option>
@@ -136,7 +161,7 @@
           </div>
           <div>
             <label>Valor Un. (R$)</label>
-            <input type="text" id="prod-preco-visivel" placeholder="R$ 0,00" readonly style="opacity: 0.8; font-weight: 700; color: var(--ac);">
+            <input type="text" id="prod-preco-visivel" placeholder="R$ 0,00" readonly style="opacity: 0.85; font-weight: 700; color: var(--ac);">
           </div>
           <div>
             <label>Quantidade *</label>
@@ -150,6 +175,7 @@
       </form>
     </div>
 
+    <!-- Bloco 2: Itens Adicionados ao Pedido -->
     <div class="cd">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
         <h2><i class="fa-solid fa-list-check" style="color: var(--ac);"></i> Resumo dos Itens Adicionados</h2>
@@ -165,16 +191,18 @@
         <strong id="valor-total-display">R$ 0,00</strong>
       </div>
     </div>
+
   </div>
 
+  <!-- Coluna da Direita: Form de Cadastro e Botão Enviar -->
   <div class="col-side">
     <div class="cd" style="position: sticky; top: 90px;">
       <h2><i class="fa-solid fa-building-user" style="color: var(--ac);"></i> 2. Dados do Comprador</h2>
-      <p class="sub">Informe os dados para faturamento e confirmação da solicitação.</p>
+      <p class="sub">Informe os dados da sua clínica para faturamento do pedido.</p>
 
       <form id="form-fechar-pedido" onsubmit="enviarPedidoGoogleSheets(event)">
         <label>Razão Social / Nome da Clínica *</label>
-        <input type="text" id="cli-nome" placeholder="Ex: Clínica Estética Avançada LTDA" required>
+        <input type="text" id="cli-nome" placeholder="Ex: Clínica Dra. Amanda Estética" required>
 
         <label>CNPJ ou CPF *</label>
         <input type="text" id="cli-doc" placeholder="Ex: 00.000.000/0001-00" required>
@@ -185,8 +213,8 @@
             <input type="text" id="cli-whats" placeholder="(41) 99999-8888" required>
           </div>
           <div>
-            <label>Registro Profissional</label>
-            <input type="text" id="cli-crm" placeholder="CRM/CRO Ex: 12345">
+            <label>CRM / CRO</label>
+            <input type="text" id="cli-crm" placeholder="Ex: CRM-PR 12345">
           </div>
         </div>
 
@@ -194,10 +222,10 @@
         <input type="email" id="cli-email" placeholder="contato@clinica.com.br" required>
 
         <label>Endereço de Entrega Completo *</label>
-        <textarea id="cli-endereco" rows="2" placeholder="Rua, Número, Bairro, Cidade e CEP para cotação do frete" required></textarea>
+        <textarea id="cli-endereco" rows="2" placeholder="Rua, Número, Bairro, Cidade e CEP" required></textarea>
 
         <label>Observações do Pedido</label>
-        <textarea id="cli-obs" rows="2" placeholder="Ex: Necessidade de lote com validade longa, urgência na entrega..."></textarea>
+        <textarea id="cli-obs" rows="2" placeholder="Ex: Lote de validade longa, urgência na entrega..."></textarea>
 
         <button type="submit" id="btn-enviar-final" class="btn pr" style="width: 100%; padding: 14px; font-size: 1em; margin-top: 8px;">
           <i class="fa-solid fa-paper-plane"></i> Finalizar & Enviar Pedido
@@ -205,13 +233,14 @@
       </form>
       
       <p style="font-size: 0.72em; color: var(--mu); text-align: center; margin-top: 14px; line-height: 1.4;">
-        <i class="fa-solid fa-shield-halved"></i> Seus dados estão seguros e serão utilizados exclusivamente para emissão do pedido e faturamento direto com a distribuidora.
+        <i class="fa-solid fa-shield-halved" style="color: var(--ac);"></i> Seus dados estão seguros e serão utilizados exclusivamente para faturamento e cotação direta.
       </p>
     </div>
   </div>
 </main>
 
 <script>
+  // SUA URL OFICIAL DO APPS SCRIPT PUBLICADA
   const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzsUOM-_LpGbaU4orP26YhTmaUqLONLCPUMo70BmNVxpoqB3S9WvGfLVHcjtsIY48sIFg/exec";
 
   let itensPedido = [];
@@ -243,6 +272,7 @@
     const quantidade = parseInt(document.getElementById('prod-qtd').value);
     const subtotal = precoUnitario * quantidade;
 
+    // Adiciona ao Array
     itensPedido.push({
       sku: sku,
       nome: nome,
@@ -251,6 +281,7 @@
       subtotal: subtotal
     });
 
+    // Reset Form de produto
     select.value = "";
     document.getElementById('prod-preco-visivel').value = "";
     document.getElementById('prod-qtd').value = 1;
@@ -319,7 +350,7 @@
     event.preventDefault();
 
     if(itensPedido.length === 0) {
-      alert("⚠️ Atenção: Por favor, adicione pelo menos 1 produto à sua lista antes de finalizar o pedido!");
+      alert("⚠️ Atenção: Por favor, adicione pelo menos 1 produto ao pedido antes de enviar!");
       return;
     }
 
@@ -352,8 +383,9 @@
         body: JSON.stringify(payload)
       });
 
-      alert("✨ Pedido Enviado com Sucesso!\n\nSua solicitação foi recebida pela Mustefaga Representações. Verifique sua caixa de e-mail (phelipeatleticano@gmail.com) para conferir a notificação!");
+      alert("✨ Pedido Enviado com Sucesso!\n\nSua solicitação foi recebida. Em breve entraremos em contato via WhatsApp/E-mail para confirmação do pedido.");
       
+      // Limpeza completa
       itensPedido = [];
       document.getElementById('form-fechar-pedido').reset();
       renderTabelaItens();
@@ -363,7 +395,7 @@
 
     } catch (error) {
       console.error("Erro ao enviar pedido:", error);
-      alert("Ops! Ocorreu um erro ao enviar seu pedido. Por favor, tente novamente ou entre em contato direto pelo WhatsApp.");
+      alert("Ops! Ocorreu um erro ao enviar seu pedido. Por favor, tente novamente ou entre em contato pelo WhatsApp.");
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Tentar Enviar Novamente';
     }
