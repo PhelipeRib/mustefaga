@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mustefaga Representações | Portal de Pedidos de Estética Inteligente</title>
   
-  <!-- Favicon de Seringa Médica em SVG -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%230d9488' d='M330.1 27.3c-12.5-12.5-32.8-12.5-45.3 0l-22.6 22.6 67.9 67.9 22.6-22.6c12.5-12.5 12.5-32.8 0-45.3l-22.6-22.6zM240 96l-67.9-67.9c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l22.6 22.6L128 117.3l-22.6-22.6c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l67.9 67.9L32 305.4V384h78.6l103.8-103.8 22.6 22.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-22.6-22.6 21.3-21.3 67.9 67.9c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L326.6 182.6l22.6-22.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L281.3 137.4 240 96zM112 352H64v-48l96-96 48 48-96 96z'/></svg>">
-
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
@@ -544,28 +542,31 @@
     totalDisplay.innerText = `R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
   }
 
-  // Gera a Análise da IA no próprio front-end antes de enviar
+  // GERADOR DINÂMICO DE ANÁLISE IA PARA O E-MAIL (Lê o texto exato digitado no formulário)
   function gerarAnaliseEstrategicaIaFront(valorTotal, observacoes, itens) {
-    let analise = "";
+    let analiseParts = [];
     const obsUpper = (observacoes || "").toUpperCase();
 
-    if (obsUpper.indexOf("EXTRAVIADO") !== -1 || obsUpper.indexOf("EXTRAVIO") !== -1 || obsUpper.indexOf("PROBLEMA") !== -1) {
-      analise += "🚨 <strong>Alerta Comercial / Logística:</strong> O cliente citou um problema de extravio/incidente em pedido anterior. Priorize o contato no WhatsApp para oferecer suporte logístico e garantir um processo de entrega 100% acompanhado.<br>";
+    // 1. Analisa problemas ou ocorrências citadas
+    if (obsUpper.indexOf("EXTRAVIADO") !== -1 || obsUpper.indexOf("EXTRAVIO") !== -1 || obsUpper.indexOf("REEMBOLSO") !== -1 || obsUpper.indexOf("PROBLEMA") !== -1) {
+      analiseParts.push("🚨 <strong>Atenção / Suporte Solicitado:</strong> O cliente mencionou um problema com lote anterior (extravio/reembolso). Recomendamos entrar em contato no WhatsApp com foco em resolver essa pendência para passar segurança na venda.");
     } else if (obsUpper.indexOf("URGENTE") !== -1 || obsUpper.indexOf("URGÊNCIA") !== -1 || obsUpper.indexOf("HOJE") !== -1) {
-      analise += "⚡ <strong>Solicitação de Urgência:</strong> Cliente necessita de entrega rápida dos insumos. Verifique a viabilidade de despacho prioritário ou motoboy.<br>";
+      analiseParts.push("⚡ <strong>Prioridade Logística:</strong> Cliente sinalizou urgência para o recebimento dos insumos.");
     }
 
+    // 2. Analisa previsões de compra
     if (obsUpper.indexOf("QUINZENA") !== -1 || obsUpper.indexOf("QUINZENAS") !== -1 || obsUpper.indexOf("MÊS") !== -1 || obsUpper.indexOf("SEMPRE") !== -1) {
-      analise += "🔄 <strong>Oportunidade de Recorrência:</strong> Cliente sinalizou intenção de compras periódicas. Ofereça uma condição especial de fidelidade para fechar fornecimento contínuo.<br>";
+      analiseParts.push("🔄 <strong>Perfil de Recorrência:</strong> Cliente tem intenção de compras periódicas. Excelente oportunidade para fechar fornecimento mensal contínuo.");
     }
 
-    if (valorTotal >= 1500) {
-      analise += "💎 <strong>Pedido de Alto Ticket (VIP):</strong> Pedido expressivo de R$ " + valorTotal.toFixed(2) + ". Sugestão: oferecer condição especial de pagamento ou frete cortesia no WhatsApp.";
+    // 3. Analisa ticket do pedido
+    if (valorTotal >= 2000) {
+      analiseParts.push("💎 <strong>Pedido de Alto Valor (R$ " + valorTotal.toFixed(2) + "):</strong> Cliente VIP. Sugestão: oferecer frete cortesia ou condição faturada no WhatsApp.");
     } else {
-      analise += "📦 <strong>Pedido Padrão B2B:</strong> Solicitação recebida com sucesso. Confirme o estoque dos SKUs selecionados e envie os dados de faturamento.";
+      analiseParts.push("📦 <strong>Solicitação B2B Processada:</strong> Verifique a disponibilidade em estoque dos SKUs acima para envio do link de pagamento.");
     }
 
-    return analise;
+    return analiseParts.join("<br><br>");
   }
 
   async function enviarPedidoGoogleSheets(event) {
@@ -583,6 +584,7 @@
     const valorTotalGeral = itensPedido.reduce((acc, item) => acc + item.subtotal, 0);
     const obsTexto = document.getElementById('cli-obs').value;
 
+    // Calcula a análise da IA com base nas observações reais digitadas pelo usuário
     const analiseIaCalculada = gerarAnaliseEstrategicaIaFront(valorTotalGeral, obsTexto, itensPedido);
 
     const payload = {
