@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mustefaga Representações | Portal de Pedidos de Estética</title>
   
-  <!-- Favicon de Seringa Médica / Estética em SVG -->
+  <!-- Favicon de Seringa Médica em SVG -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%230d9488' d='M330.1 27.3c-12.5-12.5-32.8-12.5-45.3 0l-22.6 22.6 67.9 67.9 22.6-22.6c12.5-12.5 12.5-32.8 0-45.3l-22.6-22.6zM240 96l-67.9-67.9c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l22.6 22.6L128 117.3l-22.6-22.6c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l67.9 67.9L32 305.4V384h78.6l103.8-103.8 22.6 22.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-22.6-22.6 21.3-21.3 67.9 67.9c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L326.6 182.6l22.6-22.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L281.3 137.4 240 96zM112 352H64v-48l96-96 48 48-96 96z'/></svg>">
 
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -88,6 +88,10 @@
     .total-box strong { font-size: 1.4em; color: var(--ac); font-weight: 800; }
 
     .cnpj-badge { display: inline-flex; align-items: center; gap: 4px; background: color-mix(in srgb, var(--success) 12%, transparent); color: var(--success); font-size: 0.75em; font-weight: 700; padding: 2px 8px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--success) 25%, transparent); }
+
+    /* Card QR Code */
+    .qr-card { text-align: center; background: var(--in); border: 1px dashed var(--bd); border-radius: 12px; padding: 16px; margin-top: 16px; }
+    .qr-card img { width: 130px; height: 130px; border-radius: 8px; background: #fff; padding: 6px; border: 1px solid var(--bd); object-fit: contain; }
   </style>
 </head>
 <body>
@@ -210,6 +214,22 @@
         </button>
       </form>
       
+      <!-- Bloco QR Code de Recompra Rápida (Buscando o maicomqrcode.png) -->
+      <div class="qr-card">
+        <h3 style="font-size: 0.85em; color: var(--tx); margin-bottom: 4px;">
+          <i class="fa-solid fa-qrcode" style="color: var(--ac);"></i> QR Code de Recompra Rápida
+        </h3>
+        <p style="font-size: 0.72em; color: var(--mu); margin-bottom: 10px;">
+          Cole na caixa do produto para a clínica repor o estoque em 1 clique.
+        </p>
+        <img src="maicomqrcode.png" alt="QR Code Recompra Mustefaga">
+        <div style="margin-top: 8px;">
+          <a href="maicomqrcode.png" download="QRCode_Recompra_Mustefaga.png" class="btn" style="padding: 6px 12px; font-size: 0.75em; color: var(--ac);">
+            <i class="fa-solid fa-download"></i> Baixar Adesivo / QR Code
+          </a>
+        </div>
+      </div>
+
       <p style="font-size: 0.72em; color: var(--mu); text-align: center; margin-top: 14px; line-height: 1.4;">
         <i class="fa-solid fa-shield-halved" style="color: var(--ac);"></i> Seus dados estão seguros e serão utilizados exclusivamente para faturamento e cotação direta.
       </p>
