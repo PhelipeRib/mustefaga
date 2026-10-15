@@ -89,6 +89,12 @@
 
     .cnpj-badge { display: inline-flex; align-items: center; gap: 4px; background: color-mix(in srgb, var(--success) 12%, transparent); color: var(--success); font-size: 0.75em; font-weight: 700; padding: 2px 8px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--success) 25%, transparent); }
 
+    /* Box de Upload de Imagem */
+    .upload-box { border: 2px dashed var(--bd); background: var(--in); border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; margin-bottom: 14px; }
+    .upload-box:hover { border-color: var(--ac); }
+    .upload-box i { font-size: 1.8em; color: var(--ac); margin-bottom: 6px; }
+    .preview-img { max-height: 100px; border-radius: 8px; margin-top: 8px; border: 1px solid var(--bd); display: none; }
+
     /* Card QR Code */
     .qr-card { text-align: center; background: var(--in); border: 1px dashed var(--bd); border-radius: 12px; padding: 16px; margin-top: 16px; }
     .qr-card img { width: 130px; height: 130px; border-radius: 8px; background: #fff; padding: 6px; border: 1px solid var(--bd); object-fit: contain; }
@@ -107,9 +113,14 @@
     </div>
 
     <div class="header-actions">
-      <!-- WhatsApp com o número de teste exato: 5541992540557 -->
+      <!-- WhatsApp com o seu número de teste: 5541992540557 -->
       <a href="https://api.whatsapp.com/send?phone=5541992540557&text=Ol%C3%A1!%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20o%20portal%20de%20pedidos%20Mustefaga." target="_blank" class="btn success">
         <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+
+      <!-- E-mail do Maicon -->
+      <a href="mailto:maikom.lima@gmail.com?subject=Contato%20via%20Portal%20Mustefaga&body=Ol%C3%A1%20Maicon,%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20produtos." class="btn">
+        <i class="fa-solid fa-envelope" style="color: var(--ac);"></i> Enviar E-mail
       </a>
       
       <a href="https://www.google.com/maps/search/?api=1&query=Rua+Joao+Batista+Meneguette,+22+-+Abranches,+Curitiba+-+PR" target="_blank" class="btn">
@@ -209,12 +220,22 @@
         <label>Observações do Pedido</label>
         <textarea id="cli-obs" rows="2" placeholder="Ex: Lote de validade longa, urgência na entrega..."></textarea>
 
+        <!-- Bloco de Upload de Foto/Imagem do Produto -->
+        <label>Quer enviar uma imagem do produto/caixa desejado?</label>
+        <div class="upload-box" onclick="document.getElementById('file-anexo').click()">
+          <i class="fa-solid fa-camera" style="color: var(--ac);"></i>
+          <p style="font-size: 0.82em; color: var(--tx); font-weight: 600;">Clique para anexar uma foto (PNG, JPG)</p>
+          <span id="anexo-nome-display" style="font-size: 0.75em; color: var(--ac); display: block; margin-top: 4px;">Opção não obrigatória</span>
+          <img id="preview-img-element" class="preview-img" alt="Pré-visualização">
+        </div>
+        <input type="file" id="file-anexo" accept="image/*" hidden onchange="processarAnexoImagem(event)">
+
         <button type="submit" id="btn-enviar-final" class="btn pr" style="width: 100%; padding: 14px; font-size: 1em; margin-top: 8px;">
           <i class="fa-solid fa-paper-plane"></i> Finalizar & Enviar Pedido
         </button>
       </form>
       
-      <!-- Bloco QR Code de Recompra Rápida (Buscando o maicomqrcode.png) -->
+      <!-- Bloco QR Code de Recompra Rápida -->
       <div class="qr-card">
         <h3 style="font-size: 0.85em; color: var(--tx); margin-bottom: 4px;">
           <i class="fa-solid fa-qrcode" style="color: var(--ac);"></i> QR Code de Recompra Rápida
@@ -241,6 +262,8 @@
   const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzsUOM-_LpGbaU4orP26YhTmaUqLONLCPUMo70BmNVxpoqB3S9WvGfLVHcjtsIY48sIFg/exec";
 
   let itensPedido = [];
+  let currentBase64Anexo = "";
+  let currentAnexoNome = "";
 
   function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -254,6 +277,28 @@
     const parts = select.value.split('|');
     const preco = parseFloat(parts[2]);
     document.getElementById('prod-preco-visivel').value = `R$ ${preco.toFixed(2).replace('.', ',')}`;
+  }
+
+  function processarAnexoImagem(e) {
+    const file = e.target.files[0];
+    if(!file) return;
+
+    if(file.size > 5 * 1024 * 1024) {
+      alert("⚠️ A imagem selecionada é muito grande! Escolha uma foto de até 5MB.");
+      return;
+    }
+
+    currentAnexoNome = file.name;
+    document.getElementById('anexo-nome-display').innerText = `📷 Anexado: ${file.name}`;
+
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      currentBase64Anexo = evt.target.result;
+      const imgPreview = document.getElementById('preview-img-element');
+      imgPreview.src = currentBase64Anexo;
+      imgPreview.style.display = "inline-block";
+    };
+    reader.readAsDataURL(file);
   }
 
   function adicionarItemPedido(event) {
@@ -367,7 +412,9 @@
         observacoes: document.getElementById('cli-obs').value || "Sem observações"
       },
       itens: itensPedido,
-      valorTotal: valorTotalGeral
+      valorTotal: valorTotalGeral,
+      anexoBase64: currentBase64Anexo || "",
+      anexoNome: currentAnexoNome || "foto_produto.png"
     };
 
     try {
@@ -380,8 +427,13 @@
 
       alert("✨ Pedido Enviado com Sucesso!\n\nSua solicitação foi recebida. Em breve entraremos em contato via WhatsApp/E-mail para confirmação do pedido.");
       
+      // Limpeza completa
       itensPedido = [];
+      currentBase64Anexo = "";
+      currentAnexoNome = "";
       document.getElementById('form-fechar-pedido').reset();
+      document.getElementById('anexo-nome-display').innerText = "Opção não obrigatória";
+      document.getElementById('preview-img-element').style.display = "none";
       renderTabelaItens();
 
       btn.disabled = false;
